@@ -435,6 +435,16 @@ class TestPop:
         assert proxy.pop("team_sets[0][0].types") == ["Fire"]
         assert "types" not in proxy.data["team_sets"][0][0]
 
+    def test_pop_on_non_nested_element(self, proxy):
+        with pytest.raises(AttributeError) as error:
+            assert proxy.pop("trainer.name.surname")
+
+        expected_error = AttributeError(
+            "Cannot apply method `pop` on key 'name' in path 'trainer.name.surname', "
+            "because of error: AttributeError('str' object has no attribute 'pop',)."
+        )
+        assert str(error.value) == str(expected_error)
+
 
 class TestSetitem:
     def test_setitem(self, proxy):

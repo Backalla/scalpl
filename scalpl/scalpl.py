@@ -141,6 +141,12 @@ class Cut:
     def pop(self, path: str, default: Any = None) -> Any:
         try:
             parent, last_key = self._traverse(self.data, path)
+        except Exception as error:
+            if default is not None:
+                return default
+            raise error
+
+        try:
             return parent.pop(last_key)
         except IndexError as error:
             if default is not None:
@@ -150,6 +156,11 @@ class Cut:
             if default is not None:
                 return default
             raise key_error(last_key, path, error)
+        except AttributeError as error:
+            if default is not None:
+                return default
+            *parent_keys, last_key = path.split(self.sep)
+            raise attribute_error(parent, path, error)
 
     def popitem(self) -> Any:
         return self.data.popitem()
