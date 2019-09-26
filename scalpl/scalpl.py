@@ -229,6 +229,8 @@ class Cut:
                 raise key_error(sub_key, path, error)
             except IndexError as error:
                 raise index_error(sub_key, path, error)
+            except TypeError as error:
+                raise key_error(sub_key, path, KeyError(f"{sub_key}"))
 
         parent, last_key = self._traverse_list(parent, last_key, path)
         return parent, last_key

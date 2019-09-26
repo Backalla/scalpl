@@ -27,6 +27,16 @@ class TestCutTraverse:
         assert parent == ASH
         assert last_key == "undefined_key"
 
+    def test_traverse_non_dict_nested_key(self, proxy):
+        with pytest.raises(KeyError) as error:
+            proxy._traverse({"trainer": "ash"}, "trainer.name.value")
+
+        expected_error = KeyError(
+            "Cannot access key 'name' in path 'trainer.name.value', "
+            "because of error: KeyError('name',)."
+        )
+        assert str(error.value) == str(expected_error)
+
     def test_traverse_nested_keys(self, proxy):
         parent, last_key = proxy._traverse(ASH, "badges.Boulder")
         assert parent == ASH["badges"]
