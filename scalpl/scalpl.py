@@ -162,7 +162,7 @@ class Cut:
                 try:
                     parent = parent[_key]
                 except KeyError:
-                    child: dict = {}
+                    child = {}
                     parent[_key] = child
                     parent = child
                 except IndexError as error:
