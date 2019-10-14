@@ -17,15 +17,13 @@ from typing import (
 
 def key_error(failing_key, original_path, raised_error):
     return KeyError(
-        f"Cannot access key '{failing_key}' in path '{original_path}',"
-        f" because of error: {repr(raised_error)}."
+        "Cannot access key '{}' in path '{}', because of error: {}.".format(failing_key,original_path,repr(raised_error))
     )
 
 
 def index_error(failing_key, original_path, raised_error):
     return IndexError(
-        f"Cannot access index '{failing_key}' in path '{original_path}',"
-        f" because of error: {repr(raised_error)}."
+        "Cannot access index '{}' in path '{}', because of error: {}.".format(failing_key,original_path,repr(raised_error))
     )
 
 
